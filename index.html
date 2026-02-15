@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best Life and Beyond</title>
+    <!--Website Design by github.com/aspindle-->
+<style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background: #0a0f1f;
+    }
+
+    canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+    }
+    ul { list-style-type: none }
+</style>
+<script src="https://kit.fontawesome.com/112fa68f94.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+<div style="position: absolute; left: 50%; transform: translateX(-50%); text-align: center; color: white; font-family: sans-serif; z-index: 10; top: 20px;">
+    <iframe style="border-radius:12px;" width="560" height="315" src="https://www.youtube.com/embed/m6Y_fj_5lC0?si=VSdraH8tV_DKdKco" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <br />
+    <img src="logo2.png" alt="Logo" style="width: 350px; margin-top: 20px; border-radius: 500px; ">
+    <div style="width: 560px; background-color: black; position: absolute; left: 50%; transform: translateX(-50%); text-align: center; margin-top: 30px; border-radius: 12px; padding: 10px;">
+        <h3>Get in Touch!</h3>
+        <ul id="icons" style="display: flex; justify-content: space-evenly;">
+            <!--<div style="background-color: red; border-radius:12px;">-->
+            <li>
+                <a href="https://www.youtube.com/@bestlifeandbeyondofficial" target="_blank" style="color: yellow; text-decoration: none; font-size: 50px;"> <i class="fa-brands fa-youtube"></i></a>
+            </li>
+            <!--</div>-->
+            <li>
+                <a href="https://www.instagram.com/bestlifeandbeyond" target="_blank" style="color: yellow; text-decoration: none; font-size: 50px;"> <i class="fa-brands fa-instagram"></i></i></a>
+            </li>
+            <li>
+                <a href="https://x.com/BLAB_officialYT" target="_blank" style="color: yellow; text-decoration: none; font-size: 50px;"> <i class="fa-brands fa-x-twitter"></i></i></a>
+            </li>
+            <li>
+                <a href="https://www.patreon.com/Bestlifeandbeyond" target="_blank" style="color: yellow; text-decoration: none; font-size: 50px;"> <i class="fa-brands fa-patreon"></i></i></a>
+            </li>
+             
+            
+             
+        </ul>
+    </div>
+        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+    <p style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); color: white; font-family: sans-serif;">© 2026 Best Life & Beyond. All rights reserved. </p>
+
+</div>
+
+
+<canvas id="waveCanvas"></canvas>
+
+<script>
+const canvas = document.getElementById("waveCanvas");
+const ctx = canvas.getContext("2d");
+
+function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+window.addEventListener("resize", resize);
+resize();
+
+let time = 0;
+
+// Configuration
+const waveCount = 200;
+const waveCountH = 5;
+const frequency = 0.02;
+const amplitude = 20;
+const amplitudeH = 20;
+const spacing = 30;
+const speed = 0.05;
+const angleStrength = 5.5; // controls outward tilt
+const angleStrengthH = 0.0; // controls outward tilt
+const centerGap = -1500;
+const centerGapH = -10.0;  
+
+function drawVerticalWave(xOffset, reflection = false, index = 0) {
+    ctx.beginPath();
+
+    for (let y = 0; y <= canvas.height; y++) {
+        let phaseShift = index * 0.7;
+
+        // Base sine wave (vertical)
+        let x = amplitude * Math.sin(y * frequency + time + phaseShift); // dynamic amplitude
+
+        // Outward tilt based on distance from center
+        let centerDist = (y - canvas.height / 2) / (canvas.height / 2);
+        x += centerDist * angleStrength * 100;
+
+        if (reflection) x = -x;
+
+        ctx.lineTo(canvas.width / 2 + xOffset + x, y);
+    }
+
+    const hue = (time * 50 + index * 25) % 360; //color spin
+    const opacity = (0.5 + 0.5 * Math.sin(time * 1.5 + index)) * 0.5; // pulsating opacity
+    ctx.strokeStyle = `hsla(${hue}, 85%, 65%, ${opacity})`;
+    ctx.lineWidth = 3;
+    ctx.stroke();
+}
+
+function drawHorizontalWave(yOffsetFromTop, reflection = false, index = 0) {
+    ctx.beginPath();
+
+    // Baseline near the top of the canvas (adjustable)
+    const topBase = Math.max(20, canvas.height * 0.06); // 6% down or at least 20px
+
+    for (let x = 0; x <= canvas.width; x++) {
+        let phaseShift = index * 0.7;
+
+        // Base sine wave (horizontal)
+        let y = amplitudeH * Math.sin(x * frequency + time + phaseShift); // dynamic amplitude
+
+        // Outward tilt based on distance from center horizontally (optional)
+        let centerDist = (x - canvas.width / 2) / (canvas.width / 2);
+        y += centerDist * angleStrengthH * 100;
+
+        if (reflection) y = -y;
+
+        ctx.lineTo(x, topBase + yOffsetFromTop + y);
+    }
+
+    // Use pure white for horizontal waves
+    ctx.strokeStyle = 'rgba(255,255,255,0.5)';
+    ctx.lineWidth = 3;
+    ctx.stroke();
+}
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (let i = 0; i < waveCount; i++) {
+        // Left side waves
+        drawVerticalWave(-centerGap - i * spacing, false, i );
+
+        // Reflected right side waves
+        drawVerticalWave(centerGap + i * spacing, true, i);
+    }
+    
+    // Place horizontal waves starting from the top and moving downward
+    const startOffset = 10; // distance from topBase to first horizontal wave
+    for (let i = 0; i < waveCountH; i++) {
+        const offset = startOffset + i * spacing;
+
+        //drawHorizontalWave(offset, false, i);
+        //drawHorizontalWave(offset, true, i);
+    }
+
+    time += speed;
+    requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+
+</body>
+</html>
