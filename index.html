@@ -23,6 +23,73 @@
         display: block;
     }
     ul { list-style-type: none }
+    @media (min-width:320px)  { 
+        #touchbar {
+            width: 350px;
+            background-color: black !important;
+            margin-top: 20px;
+        }
+        #myvideo {
+            width: 350px;
+            height: 197px;
+            margin-top: 20px;
+            margin-left: -50px;
+            margin-bottom: 90px;
+        }
+        #mylogo {
+            width: 300px;
+            margin-top: 90px;
+        }
+     }
+    @media (min-width:481px)  { 
+        #touchbar {
+            width: 400px;
+            background-color: black !important;
+            margin-top:20px;
+        }
+        #myvideo {
+            width: 300px;
+            height: 225px;
+            margin-top: 20px;
+            margin-bottom: 90px;
+            margin-left: -107px;
+        }
+        #mylogo {
+            width: 350px;
+            margin-top:90px;
+
+        }
+     }
+    @media (min-width:641px)  { 
+        #touchbar {
+            width: 500px;
+            background-color: black !important;
+            justify-content: center;
+        }
+        #myvideo {
+            width: 500px !important;
+            height: 281px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            margin-left: -30px;
+        }
+        #mylogo {
+            width: 350px;
+        }
+     }
+     @media (min-width:961px)  { 
+        #touchbar {
+            width: 560px;
+            background-color: black !important;
+        }
+        #myvideo {
+            width: 560px;
+            height: 315px;
+        }
+        #mylogo {
+            width: 350px;
+        }
+      }
 </style>
 <script src="https://kit.fontawesome.com/112fa68f94.js" crossorigin="anonymous"></script>
 
@@ -30,10 +97,11 @@
 <body>
 
 <div style="position: absolute; left: 50%; transform: translateX(-50%); text-align: center; color: white; font-family: sans-serif; z-index: 10; top: 20px;">
-    <iframe style="border-radius:12px;" width="560" height="315" src="https://www.youtube.com/embed/m6Y_fj_5lC0?si=VSdraH8tV_DKdKco" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <div id="myvideo"><iframe style="border-radius:12px;" width="560" height="315" src="https://www.youtube.com/embed/m6Y_fj_5lC0?si=VSdraH8tV_DKdKco" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
     <br />
-    <img src="logo2.png" alt="Logo" style="width: 350px; margin-top: 20px; border-radius: 500px; ">
-    <div style="width: 560px; background-color: black; position: absolute; left: 50%; transform: translateX(-50%); text-align: center; margin-top: 30px; border-radius: 12px; padding: 10px;">
+    <img id="mylogo" src="logo2.png" alt="Logo" style="width: 350px; margin-top: 20px; border-radius: 500px; ">
+    <div id="touchbar" style=" position: absolute; left: 50%; transform: translateX(-50%); text-align: center;  border-radius: 12px; padding: 10px;">
         <h3>Get in Touch!</h3>
         <ul id="icons" style="display: flex; justify-content: space-evenly;">
             <!--<div style="background-color: red; border-radius:12px;">-->
@@ -170,4 +238,3 @@ animate();
 
 </body>
 </html>
-
